@@ -28,15 +28,28 @@ function onImageClick(evt) {
   controlModalImage(evt.target.dataset.source);
 }
 
-function controlModalImage(link) {
-  const statusGalleryImage = basicLightbox.create(`
-    <img src="${link}" width="800" height="600">
-    `);
-  statusGalleryImage.show();
+let statusGalleryImage;
 
-  document.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {      
-      return statusGalleryImage.close();
+function controlModalImage(link) {
+  statusGalleryImage = basicLightbox.create(
+    `
+    <img src="${link}" width="800" height="600">
+    `,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", onlistenerKeyboard);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", onlistenerKeyboard);
+      },
     }
-  });
+  );
+
+  statusGalleryImage.show();
+}
+
+function onlistenerKeyboard(evt) {
+  if (evt.code === "Escape") {
+    return statusGalleryImage.close();
+  }
 }
