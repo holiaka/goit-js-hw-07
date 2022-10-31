@@ -9,9 +9,9 @@ const imageBoxRef = document.querySelector(".gallery");
 
 const imageElements = galleryItems.map(
   ({ preview, original, description }) =>
-    `<a class="gallery__item" href="${original}">
+    `<li class="gallery__item"><a class="gallery__link" href="${original}">
     <img class="gallery__image" src="${preview}"
-    alt="${description}" /></a>`
+    alt="${description}" /></a></li>`
 );
 
 imageBoxRef.insertAdjacentHTML("beforeend", imageElements.join(""));
@@ -21,6 +21,7 @@ imageBoxRef.insertAdjacentHTML("beforeend", imageElements.join(""));
 let gallery = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
+  captionPosition: "bottom",
 });
 
 const bodyRef = document.querySelector("body");

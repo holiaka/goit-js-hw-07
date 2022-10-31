@@ -25,6 +25,9 @@ imageBoxRef.addEventListener("click", onImageClick);
 
 function onImageClick(evt) {
   evt.preventDefault();
+  if (evt.target.className !== "gallery__image") {
+    return;
+  }
   controlModalImage(evt.target.dataset.source);
 }
 
